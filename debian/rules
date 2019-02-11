@@ -1,0 +1,138 @@
+#!/usr/bin/make -f
+# Sample debian.rules file - for GNU Hello (1.3).
+# Copyright 1994,1995 by Ian Jackson.
+# I hereby give you perpetual unlimited permission to copy,
+# modify and relicense this file, provided that you do not remove
+# my name from the file itself.  (I assert my moral right of
+# paternity under the Copyright, Designs and Patents Act 1988.)
+# This file may have to be extensively modified
+#
+# Modified to be a prototype for debmake by Christoph Lameter <clameter@debian.org>
+SHELL=/bin/bash
+
+package=openssl
+
+# For generating the manpages
+export VERSION=$(shell dpkg-parsechangelog | grep '^Version:' | sed -e 's/^.*://' -e 's/-.*//')
+
+# The binary architeture
+DEB_HOST_ARCH = $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_MULTIARCH=$(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH_CPU=$(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+
+DEB_HOST_GNU_TYPE=$(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE=$(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+ifneq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
+	export CROSS_COMPILE ?= $(DEB_HOST_GNU_TYPE)-
+endif
+
+CONFARGS  = --prefix=/usr --openssldir=/usr/lib/ssl --libdir=lib/$(DEB_HOST_MULTIARCH) no-idea no-mdc2 no-rc5 no-zlib  enable-tlsext no-ssl2 no-ssl3 enable-unit-test no-ssl3-method enable-rfc3779 enable-cms
+OPT_alpha = ev4 ev5
+ARCHOPTS  = OPT_$(DEB_HOST_ARCH)
+OPTS      = $($(ARCHOPTS))
+WANTED_LIBC_VERSION = 2.3.1-10
+
+ifeq ($(DEB_HOST_ARCH_CPU), amd64)
+	CONFARGS += enable-ec_nistp_64_gcc_128
+endif
+
+export OPENSSL_CONF=$(shell pwd)/apps/openssl.cnf
+MAKE_TEST = make test
+ifneq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+	MAKE_TEST = :
+endif
+
+%:
+	dh $@ --without autoreconf
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+#	perl util/ssldir.pl /usr/lib/ssl
+#	chmo +x debian/libtool
+	./Configure no-shared $(CONFARGS) debian-$(DEB_HOST_ARCH)
+	make depend
+	make -f Makefile all
+	$(MAKE_TEST)
+	mv libcrypto.a libcrypto.static
+	mv libssl.a libssl.static
+	make -f Makefile clean
+	test -z "$(OPTS)" || for opt in $(OPTS); \
+	do \
+		set -xe; \
+		./Configure shared $(CONFARGS) debian-$(DEB_HOST_ARCH)-$$opt; \
+		make -f Makefile all; \
+		$(MAKE_TEST); \
+		mkdir -p $$opt; \
+		mv libcrypto.so* libssl.so* $$opt/; \
+		make -f Makefile clean; \
+	done
+	./Configure shared $(CONFARGS) debian-$(DEB_HOST_ARCH)
+	#make -f Makefile depend
+	ln -sf apps/openssl.pod crypto/crypto.pod ssl/ssl.pod doc/
+#	make -f Makefile linux-shared
+	make -f Makefile all
+	$(MAKE_TEST)
+#	strip apps/openssl
+#	make -f Makefile clean
+#	./Configure --prefix=/usr --openssldir=/usr/lib/ssl no-idea no-mdc2 no-rc5 debian-$(DEB_HOST_ARCH)
+#	make -f Makefile all
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+	-./Configure $(CONFARGS) debian-$(DEB_HOST_ARCH)
+	[ ! -f Makefile ] || make -f Makefile  clean clean-shared
+	#-make -f Makefile  dclean
+#	perl util/ssldir.pl /usr/local/ssl
+	-rm -f test/.rnd test/testkey.pem test/testreq.pem test/certCA.srl
+	-rm -f util/mk1mf.bak Makefile.bak `find . -name Makefile.save` 
+	-rm -f crypto/pem/ctx_size
+	-rm -f `find . -name "*~"`
+	-rm -f `find . -name "*.orig" -o -name "*.rej"`
+	-rm -f certs/*.0 certs/*.1
+#	-rm -rf debian/tmp debian/files* core `find debian/* -type d`
+	-rm -rf core $(OPTS)
+	-rm doc/*.pod
+	-rm -f libcrypto.* libssl.*
+	-cd test && rm -f .rnd tmp.bntest tmp.bctest *.o *.obj lib tags core .pure .nfs* *.old *.bak fluff bntest ectest  ecdsatest ecdhtest ideatest md2test  md4test md5test hmactest rc2test rc4test rc5test destest shatest sha1test sha256t sha512t mdc2test rmdtest randtest dhtest enginetest bftest casttest ssltest exptest dsatest rsa_test evp_test *.ss *.srl log dummytest newkey.pem igetest
+	-rm Makefile apps/CA.pl tools/c_rehash crypto/opensslconf.h crypto/x86_64cpuid.S
+	rm -f test/asn1test test/wp_test test/srptest test/jpaketest
+	rm -f certs/demo/*.0
+	rm -rf crypto/aes/aes-armv4.S crypto/bn/armv4-gf2m.S crypto/modes/ghash-armv4.S crypto/sha/*.S
+	find . -type l -exec rm '{}' \;
+
+override_dh_auto_install:
+	make -f Makefile install INSTALL_PREFIX=`pwd`/debian/tmp
+	# pic static libraries, nobody should need them
+#	mv debian/tmp/usr/lib/libcrypto.a debian/tmp/usr/lib/libcrypto_pic.a
+#	mv debian/tmp/usr/lib/libssl.a debian/tmp/usr/lib/libssl_pic.a
+	cp -pf libcrypto.static debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libcrypto.a
+	cp -pf libssl.static debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libssl.a
+	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libcrypto.so.* debian/libcrypto1.0.2-udeb/usr/lib/
+	cp -pf debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libssl.so.* debian/libssl1.0.2-udeb/usr/lib/
+	cp -auv lib*.so* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/
+	for opt in $(OPTS); \
+		do set -xe; \
+		mkdir -p debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/$$opt; \
+		cp -auv $$opt/lib*.so* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/$$opt/; \
+	done
+	mkdir -p debian/tmp/usr/include/$(DEB_HOST_MULTIARCH)/openssl
+	mv debian/tmp/usr/include/openssl/opensslconf.h debian/tmp/usr/include/$(DEB_HOST_MULTIARCH)/openssl/
+
+	dh_lintian -a
+	# dh_lintian skips udebs, copy it manually
+	mkdir -p debian/libcrypto1.0.2-udeb/usr/share/lintian/overrides
+	mkdir -p debian/libssl1.0.2-udeb/usr/share/lintian/overrides
+	cp debian/libcrypto1.0.2-udeb.lintian-overrides debian/libcrypto1.0.2-udeb/usr/share/lintian/overrides/libcrypto1.0.2-udeb
+	cp debian/libssl1.0.2-udeb.lintian-overrides debian/libssl1.0.2-udeb/usr/share/lintian/overrides/libssl1.0.2-udeb
+
+override_dh_installchangelogs:
+	dh_installchangelogs -a CHANGES
+
+override_dh_makeshlibs:
+	dh_makeshlibs -a -V --add-udeb="libcrypto1.0.2-udeb" -Xengines -- -c4
+
+override_dh_shlibdeps:
+	sed -i '/^udeb: libssl/s/libcrypto1.0.2-udeb/libssl1.0.2-udeb/' debian/libssl1.0.2/DEBIAN/shlibs
+	dh_shlibdeps -a -L libssl1.0.2
