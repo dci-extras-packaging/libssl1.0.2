@@ -1,72 +1,47 @@
-openssl1.0 (1.0.2q-2) unstable; urgency=medium
-
-  * User openssl.cnf from the build directory for the testsuite.
-
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sat, 24 Nov 2018 13:02:13 +0100
-
-openssl1.0 (1.0.2q-1) unstable; urgency=medium
-
-  * Correct typo in the riscv64 target (Closes: #891799).
-  * Update to policy 4.1.4
-    - drop Priority: important.
-    - use signing-key.asc and a https links for downloads.
-    - point the VCS-* to salsa.
-  * Import upstream version 1.0.2q
-    - CVE-2018-5407 (Microarchitecture timing vulnerability in ECC scalar
-      multiplication)
-    - CVE-2018-0734 (Timing vulnerability in DSA signature generation)
-    - CVE-2018-0732 (Client DoS due to large DH parameter)
-    - CVE-2018-0737 (Cache timing vulnerability in RSA Key Generation)
-      (Closes: #895845)
-
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 22 Nov 2018 22:06:24 +0100
-
-openssl1.0 (1.0.2o-1) unstable; urgency=medium
-
-  * Add riscv64 (Closes: #891799).
-  * New upstream version 1.0.2o:
-    - Fixes CVE-2018-0739 (Constructed ASN.1 types with a recursive definition
-            could exceed the stack)
-
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Tue, 27 Mar 2018 21:10:52 +0200
-
-openssl1.0 (1.0.2n-1) unstable; urgency=medium
-
-  * New upstream version 1.0.2n
-    - drop patches which applied upstream:
-      - 0001-Fix-no-ssl3-build.patch
-      - 0001-aes-armv4-bsaes-armv7-sha256-armv4-.pl-make-it-work-.patch
-    - Fixes CVE-2017-3737 (Read/write after SSL object in error state)
-    - Fixes CVE-2017-3738 (rsaz_1024_mul_avx2 overflow bug on x86_64)
-  * move to gbp
-  * Abort the build if symbols are discovered which are not part of the
-    symbols file.
-
- -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 13 Dec 2017 23:47:09 +0100
-
-openssl1.0 (1.0.2m-3) unstable; urgency=medium
-
-  * Avoid problems with aes and sha256 assembler on armhf using binutils 2.29
-
- -- Kurt Roeckx <kurt@roeckx.be>  Sun, 05 Nov 2017 17:28:52 +0100
-
-openssl1.0 (1.0.2m-2) unstable; urgency=medium
-
-  * Fix no-ssl3-method build
-
- -- Kurt Roeckx <kurt@roeckx.be>  Thu, 02 Nov 2017 19:00:50 +0100
-
-openssl1.0 (1.0.2m-1) unstable; urgency=high
+openssl1.0 (1.0.2r-1~deb9u1) stretch-security; urgency=medium
 
   [ Kurt Roeckx ]
   * New upstream version
-    - Fixes CVE-2017-3735
-    - Fixes CVE-2017-3736
+    - Fixes CVE-2019-1559
 
-  [ Sebastian Andrzej Siewior]
-  * Add support for arm64ilp32, Patch by Wookey (Closes: #874709).
+  [ Sebastian Andrzej Siewior ]
+  * Use openssl.cnf from the build directory for the testsuite.
 
- -- Kurt Roeckx <kurt@roeckx.be>  Thu, 02 Nov 2017 14:30:51 +0100
+ -- Kurt Roeckx <kurt@roeckx.be>  Wed, 27 Feb 2019 21:58:52 +0100
+
+openssl1.0 (1.0.2q-1~deb9u1) stretch-security; urgency=medium
+
+  * use signing-key.asc and a https links for downloads
+  * Import 1.0.2q stable release.
+    - CVE-2018-0737 (Cache timing vulnerability in RSA Key Generation)
+    - CVE-2018-0732 (Client DoS due to large DH parameter)
+    - CVE-2018-0734 (Timing vulnerability in DSA signature generation)
+    - CVE-2018-5407 (Microarchitecture timing vulnerability in ECC scalar
+      multiplication)
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Sun, 16 Dec 2018 21:07:51 +0100
+
+openssl1.0 (1.0.2l-2+deb9u3) stretch-security; urgency=high
+
+  * CVE-2018-0739 (Constructed ASN.1 types with a recursive definition could
+    exceed the stack)
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Thu, 29 Mar 2018 13:10:14 +0200
+
+openssl1.0 (1.0.2l-2+deb9u2) stretch-security; urgency=high
+
+  * CVE-2017-3737 (Read/write after SSL object in error state)
+  * Add a testcase for CVE-2017-3737
+  * CVE-2017-3738 (rsaz_1024_mul_avx2 overflow bug on x86_64)
+
+ -- Sebastian Andrzej Siewior <sebastian@breakpoint.cc>  Wed, 13 Dec 2017 23:09:47 +0100
+
+openssl1.0 (1.0.2l-2+deb9u1) stretch-security; urgency=medium
+
+  * Fix CVE-2017-3735
+  * Fix CVE-2017-3736
+
+ -- Kurt Roeckx <kurt@roeckx.be>  Thu, 02 Nov 2017 14:03:53 +0100
 
 openssl1.0 (1.0.2l-2) unstable; urgency=medium
 

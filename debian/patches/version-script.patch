@@ -1,5 +1,5 @@
 From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
-Date: Tue, 12 Dec 2017 23:35:24 +0100
+Date: Thu, 13 Dec 2018 23:27:46 +0100
 Subject: version-script
 
 ===================================================================
@@ -14,10 +14,10 @@ Subject: version-script
  create mode 100644 openssl.ld
 
 diff --git a/Configure b/Configure
-index 821d83965243..28ea7b2c2ab3 100755
+index 9e1e17071868..8d949b797594 100755
 --- a/Configure
 +++ b/Configure
-@@ -1752,6 +1752,8 @@ if ($strict_warnings)
+@@ -1750,6 +1750,8 @@ if ($strict_warnings)
  		}
  	}
  

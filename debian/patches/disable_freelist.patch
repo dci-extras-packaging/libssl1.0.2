@@ -1,5 +1,5 @@
 From: Kurt Roeckx <kurt@roeckx.be>
-Date: Tue, 12 Dec 2017 23:35:24 +0100
+Date: Thu, 13 Dec 2018 23:27:47 +0100
 Subject: Disable the freelist
 
 We don't define OPENSSL_NO_BUF_FREELISTS globally sinc it changes structures and

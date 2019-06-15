@@ -1,12 +1,12 @@
 From: Raphael Geissert <geissert@debian.org>
-Date: Tue, 12 Dec 2017 23:35:24 +0100
-Subject: block_digicert_malaysia
+Date: Thu, 13 Dec 2018 23:27:47 +0100
+Subject: make X509_verify_cert indicate that any certificate whose
 
-Description: make X509_verify_cert indicate that any certificate whose
- name contains "Digicert Sdn. Bhd." (from Malaysia) is revoked.
 Forwarded: not-needed
 Origin: vendor
 Last-Update: 2011-11-05
+
+name contains "Digicert Sdn. Bhd." (from Malaysia) is revoked.
 ---
  crypto/x509/x509_vfy.c | 7 ++++---
  1 file changed, 4 insertions(+), 3 deletions(-)

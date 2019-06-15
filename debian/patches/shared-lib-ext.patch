@@ -1,5 +1,5 @@
 From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
-Date: Tue, 12 Dec 2017 23:35:24 +0100
+Date: Thu, 13 Dec 2018 23:27:46 +0100
 Subject: shared-lib-ext
 
 ===================================================================
@@ -8,10 +8,10 @@ Subject: shared-lib-ext
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index 1a99ff36e7e5..821d83965243 100755
+index 2888e19a2c90..9e1e17071868 100755
 --- a/Configure
 +++ b/Configure
-@@ -1853,7 +1853,8 @@ while (<IN>)
+@@ -1851,7 +1851,8 @@ while (<IN>)
  	elsif ($shared_extension ne "" && $shared_extension =~ /^\.s([ol])\.[^\.]*\.[^\.]*$/)
  		{
  		my $sotmp = $1;

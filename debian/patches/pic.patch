@@ -1,8 +1,7 @@
 From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
-Date: Tue, 12 Dec 2017 23:35:24 +0100
+Date: Sat, 1 Sep 2018 22:20:24 +0200
 Subject: pic
 
-===================================================================
 ---
  crypto/des/asm/desboth.pl | 17 ++++++++++++++---
  crypto/perlasm/cbc.pl     | 24 ++++++++++++++++++++----

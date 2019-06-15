@@ -1,5 +1,5 @@
 From: Debian OpenSSL Team <pkg-openssl-devel@lists.alioth.debian.org>
-Date: Tue, 12 Dec 2017 23:35:23 +0100
+Date: Thu, 13 Dec 2018 23:27:46 +0100
 Subject: engines-path
 
 ===================================================================
@@ -11,10 +11,10 @@ Subject: engines-path
  4 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Configure b/Configure
-index 79b7d5c90d8e..1a99ff36e7e5 100755
+index 478ca485e3d3..2888e19a2c90 100755
 --- a/Configure
 +++ b/Configure
-@@ -1995,7 +1995,7 @@ while (<IN>)
+@@ -1993,7 +1993,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{
