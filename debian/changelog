@@ -1,3 +1,9 @@
+openssl1.0 (1.0.2u-2~deb9u1) UNRELEASED; urgency=medium
+
+  * Version bump 
+
+ -- Scarlett Moore <sgmoore@kde.org>  Fri, 10 Jan 2020 21:43:11 -0700
+
 openssl1.0 (1.0.2u-1~deb9u1) stretch-security; urgency=medium
 
   * Import 1.0.2u
