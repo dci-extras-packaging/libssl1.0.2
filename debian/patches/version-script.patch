@@ -14,10 +14,10 @@ Subject: version-script
  create mode 100644 openssl.ld
 
 diff --git a/Configure b/Configure
-index 9e1e17071868..8d949b797594 100755
+index b2918b52ba27..a316c0818ee0 100755
 --- a/Configure
 +++ b/Configure
-@@ -1750,6 +1750,8 @@ if ($strict_warnings)
+@@ -1751,6 +1751,8 @@ if ($strict_warnings)
  		}
  	}
  

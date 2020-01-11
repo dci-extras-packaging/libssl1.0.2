@@ -7,10 +7,10 @@ Subject: debian-targets
  1 file changed, 54 insertions(+)
 
 diff --git a/Configure b/Configure
-index c7066dc97c58..478ca485e3d3 100755
+index 494e0b3d24c2..417b930fe7d1 100755
 --- a/Configure
 +++ b/Configure
-@@ -133,6 +133,10 @@ my $clang_devteam_warn = "-Wno-unused-parameter -Wno-missing-field-initializers
+@@ -133,6 +133,10 @@ my $clang_devteam_warn = "-Wno-unknown-warning-option -Wno-unused-parameter -Wno
  # Warn that "make depend" should be run?
  my $warn_make_depend = 0;
  

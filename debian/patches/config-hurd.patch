@@ -8,7 +8,7 @@ Subject: config-hurd
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/config b/config
-index 6214c4b1df9f..207758a85f34 100755
+index c8a3b5897d26..cd9d328dd470 100755
 --- a/config
 +++ b/config
 @@ -170,8 +170,8 @@ case "${SYSTEM}:${RELEASE}:${VERSION}:${MACHINE}" in

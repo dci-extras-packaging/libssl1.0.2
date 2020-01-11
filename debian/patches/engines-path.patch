@@ -11,10 +11,10 @@ Subject: engines-path
  4 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/Configure b/Configure
-index 478ca485e3d3..2888e19a2c90 100755
+index 417b930fe7d1..b9e7c8b6aee7 100755
 --- a/Configure
 +++ b/Configure
-@@ -1993,7 +1993,7 @@ while (<IN>)
+@@ -1994,7 +1994,7 @@ while (<IN>)
  		}
  	elsif	(/^#define\s+ENGINESDIR/)
  		{
@@ -24,7 +24,7 @@ index 478ca485e3d3..2888e19a2c90 100755
  		print OUT "#define ENGINESDIR \"$foo\"\n";
  		}
 diff --git a/Makefile.org b/Makefile.org
-index f51f0a756c3e..aec7e577e0bc 100644
+index 8089d3fc2ead..d24ff26c8cab 100644
 --- a/Makefile.org
 +++ b/Makefile.org
 @@ -369,7 +369,7 @@ libcrypto.pc: Makefile

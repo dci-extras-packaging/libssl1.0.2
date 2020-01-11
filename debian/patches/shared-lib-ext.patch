@@ -8,10 +8,10 @@ Subject: shared-lib-ext
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Configure b/Configure
-index 2888e19a2c90..9e1e17071868 100755
+index b9e7c8b6aee7..b2918b52ba27 100755
 --- a/Configure
 +++ b/Configure
-@@ -1851,7 +1851,8 @@ while (<IN>)
+@@ -1852,7 +1852,8 @@ while (<IN>)
  	elsif ($shared_extension ne "" && $shared_extension =~ /^\.s([ol])\.[^\.]*\.[^\.]*$/)
  		{
  		my $sotmp = $1;

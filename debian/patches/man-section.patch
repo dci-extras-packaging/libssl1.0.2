@@ -8,7 +8,7 @@ Subject: man-section
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.org b/Makefile.org
-index 68ab12367b88..9aa12e412845 100644
+index 45afbe5cf65d..0882c80cff68 100644
 --- a/Makefile.org
 +++ b/Makefile.org
 @@ -162,7 +162,8 @@ MAKEFILE= Makefile
